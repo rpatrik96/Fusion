@@ -72,9 +72,9 @@ void FusionBiasInitialise(FusionBias * const fusionBias, const int adcThreshold,
  * @param zAdc Gyroscope z axis ADC value in lsb.
  */
 void FusionBiasUpdate(FusionBias * const fusionBias, const int xAdc, const int yAdc, const int zAdc) {
-    if ((xAdc > fusionBias->adcThreshold) || (xAdc < -fusionBias->adcThreshold) ||
-            (yAdc > fusionBias->adcThreshold) || (yAdc < -fusionBias->adcThreshold) ||
-            (zAdc > fusionBias->adcThreshold) || (zAdc < -fusionBias->adcThreshold)) {
+    if ((xAdc > fusionBias->adcThreshold) || (xAdc < (-1 * fusionBias->adcThreshold)) ||
+            (yAdc > fusionBias->adcThreshold) || (yAdc < (-1 * fusionBias->adcThreshold)) ||
+            (zAdc > fusionBias->adcThreshold) || (zAdc < (-1 * fusionBias->adcThreshold))) {
         fusionBias->stationaryTimer = 0.0f;
     } else {
         if (fusionBias->stationaryTimer >= STATIONARY_PERIOD) {

@@ -270,15 +270,15 @@ void FusionAhrsReinitialise(FusionAhrs * const fusionAhrs) {
  */
 void FusionAhrsZeroYaw(FusionAhrs * const fusionAhrs) {
 #define Q fusionAhrs->quaternion.element // define shorthand label for more readable code
-    fusionAhrs->quaternion = FusionQuaternionNormalise(fusionAhrs->quaternion); // quaternion must be normalised accurately (approximation not sufficient))
-    const float halfYaw = 0.5f * atan2f(Q.x * Q.y + Q.w * Q.z, Q.w * Q.w - 0.5f + Q.x * Q.x); // Euler angle of conjugate
-    const FusionQuaternion yawQuaternion = {
-        .element.w = cosf(halfYaw),
+    fusionAhrs->quaternion = FusionQuaternionNormalise(fusionAhrs->quaternion); // quaternion must be normalised accurately (approximation not sufficient)
+    const float halfInverseYaw = 0.5f * atan2f(Q.x * Q.y + Q.w * Q.z, Q.w * Q.w - 0.5f + Q.x * Q.x); // Euler angle of conjugate
+    const FusionQuaternion inverseYawQuaternion = {
+        .element.w = cosf(halfInverseYaw),
         .element.x = 0.0f,
         .element.y = 0.0f,
-        .element.z = -sinf(halfYaw),
+        .element.z = -1.0f * sinf(halfInverseYaw),
     };
-    fusionAhrs->quaternion = FusionQuaternionMultiply(yawQuaternion, fusionAhrs->quaternion);
+    fusionAhrs->quaternion = FusionQuaternionMultiply(inverseYawQuaternion, fusionAhrs->quaternion);
 #undef Q // undefine shorthand label
 }
 

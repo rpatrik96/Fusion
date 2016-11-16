@@ -343,9 +343,9 @@ static inline __attribute__((always_inline)) FusionQuaternion FusionQuaternionMu
 static inline __attribute__((always_inline)) FusionQuaternion FusionQuaternionConjugate(const FusionQuaternion quaternion) {
     const FusionQuaternion conjugate = {
         .element.w = quaternion.element.w,
-        .element.x = -quaternion.element.x,
-        .element.y = -quaternion.element.y,
-        .element.z = -quaternion.element.z,
+        .element.x = -1.0f * quaternion.element.x,
+        .element.y = -1.0f * quaternion.element.y,
+        .element.z = -1.0f * quaternion.element.z,
     };
     return conjugate;
 }
@@ -443,7 +443,7 @@ static inline __attribute__((always_inline)) FusionEulerAngles FusionQuaternionT
     const float qwSquaredMinusHalf = Q.w * Q.w - 0.5f; // calculate common terms to avoid repeated operations
     const FusionEulerAngles eulerAngles = {
         .angle.roll = FUSION_RADIANS_TO_DEGREES(atan2f(Q.y * Q.z - Q.w * Q.x, qwSquaredMinusHalf + Q.z * Q.z)),
-        .angle.pitch = FUSION_RADIANS_TO_DEGREES(-asinf(2.0f * (Q.x * Q.z + Q.w * Q.y))),
+        .angle.pitch = FUSION_RADIANS_TO_DEGREES(-1.0f * asinf(2.0f * (Q.x * Q.z + Q.w * Q.y))),
         .angle.yaw = FUSION_RADIANS_TO_DEGREES(atan2f(Q.x * Q.y - Q.w * Q.z, qwSquaredMinusHalf + Q.x * Q.x)),
     };
     return eulerAngles;
