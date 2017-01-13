@@ -232,11 +232,7 @@ static inline __attribute__((always_inline)) FusionVector3 FusionVectorCrossProd
 static inline __attribute__((always_inline)) FusionVector3 FusionVectorNormalise(const FusionVector3 vector) {
 #define V vector.axis // define shorthand label for more readable code
     const float normReciprocal = 1.0f / sqrt(V.x * V.x + V.y * V.y + V.z * V.z);
-    FusionVector3 normalisedVector;
-    normalisedVector.axis.x = V.x * normReciprocal;
-    normalisedVector.axis.y = V.y * normReciprocal;
-    normalisedVector.axis.z = V.z * normReciprocal;
-    return normalisedVector;
+    return FusionVectorMultiplyScalar(vector, normReciprocal);
 #undef V // undefine shorthand label
 }
 
@@ -249,11 +245,7 @@ static inline __attribute__((always_inline)) FusionVector3 FusionVectorNormalise
 static inline __attribute__((always_inline)) FusionVector3 FusionVectorFastNormalise(const FusionVector3 vector) {
 #define V vector.axis // define shorthand label for more readable code
     const float normReciprocal = FusionFastInverseSqrt(V.x * V.x + V.y * V.y + V.z * V.z);
-    FusionVector3 normalisedVector;
-    normalisedVector.axis.x = V.x * normReciprocal;
-    normalisedVector.axis.y = V.y * normReciprocal;
-    normalisedVector.axis.z = V.z * normReciprocal;
-    return normalisedVector;
+    return FusionVectorMultiplyScalar(vector, normReciprocal);
 #undef V // undefine shorthand label
 }
 
@@ -333,8 +325,8 @@ static inline __attribute__((always_inline)) FusionQuaternion FusionQuaternionMu
  */
 static inline __attribute__((always_inline)) FusionQuaternion FusionQuaternionConjugate(const FusionQuaternion quaternion) {
     FusionQuaternion conjugate;
-    conjugate.element.w = quaternion.element.w,
-            conjugate.element.x = -1.0f * quaternion.element.x;
+    conjugate.element.w = quaternion.element.w;
+    conjugate.element.x = -1.0f * quaternion.element.x;
     conjugate.element.y = -1.0f * quaternion.element.y;
     conjugate.element.z = -1.0f * quaternion.element.z;
     return conjugate;
