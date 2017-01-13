@@ -56,7 +56,7 @@
  * FusionAhrsInitialise(&fusionAhrs, 0.5f, 20.0f, 70.0f); // valid magnetic field defined as 20 uT to 70 uT
  * @endcode
  *
- * @param fusionBias Address of the FusionAhrs structure.
+ * @param fusionAhrs Address of the FusionAhrs structure.
  * @param gain Algorithm gain.  Must be equal or greater than zero.  A value of
  * zero will mean that the accelerometer and magnetometer are ignored.
  * Increasing the gain will increase the influence of the accelerometer and
@@ -110,7 +110,7 @@ void FusionAhrsInitialise(FusionAhrs * const fusionAhrs, const float gain, const
  * //FusionAhrsUpdate(&fusionAhrs, gyroscope, FUSION_VECTOR3_ZERO, FUSION_VECTOR3_ZERO, 0.01f); // alternative function call to ignore accelerometer and magnetometer
  * @endcode
  *
- * @param fusionBias Address of the FusionAhrs structure.
+ * @param fusionAhrs Address of the FusionAhrs structure.
  * @param gyroscope Gyroscope measurement in degrees per second.
  * @param accelerometer Accelerometer measurement in g.
  * @param magnetometer Magnetometer measurement in any calibrated units.
@@ -199,7 +199,7 @@ void FusionAhrsUpdate(FusionAhrs * const fusionAhrs, const FusionVector3 gyrosco
  * const FusionVector3 earthAcceleration = FusionAhrsCalculateEarthAcceleration(&fusionAhrs);
  * @endcode
  *
- * @param fusionBias Address of the FusionAhrs structure.
+ * @param fusionAhrs Address of the FusionAhrs structure.
  * @return Earth acceleration in g.
  */
 FusionVector3 FusionAhrsCalculateEarthAcceleration(const FusionAhrs * const fusionAhrs) {
@@ -234,7 +234,7 @@ FusionVector3 FusionAhrsCalculateEarthAcceleration(const FusionAhrs * const fusi
  * }
  * @endcode
  *
- * @param fusionBias Address of the FusionAhrs structure.
+ * @param fusionAhrs Address of the FusionAhrs structure.
  * @return True while the algorithm is initialising.
  */
 bool FusionAhrsIsInitialising(const FusionAhrs * const fusionAhrs) {
@@ -249,7 +249,7 @@ bool FusionAhrsIsInitialising(const FusionAhrs * const fusionAhrs) {
  * FusionAhrsReinitialise(&fusionAhrs);
  * @endcode
  *
- * @param fusionBias Address of the FusionAhrs structure.
+ * @param fusionAhrs Address of the FusionAhrs structure.
  */
 void FusionAhrsReinitialise(FusionAhrs * const fusionAhrs) {
     fusionAhrs->quaternion = FUSION_QUATERNION_IDENTITY;
@@ -266,7 +266,7 @@ void FusionAhrsReinitialise(FusionAhrs * const fusionAhrs) {
  * FusionAhrsZeroYaw(&fusionAhrs);
  * @endcode
  *
- * @param fusionBias Address of the FusionAhrs structure.
+ * @param fusionAhrs Address of the FusionAhrs structure.
  */
 void FusionAhrsZeroYaw(FusionAhrs * const fusionAhrs) {
 #define Q fusionAhrs->quaternion.element // define shorthand label for more readable code
